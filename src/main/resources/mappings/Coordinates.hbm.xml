@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="entity">
+    <class name="Coordinates" table="coordinates">
+        <id name="id" type="long" column="id">
+            <generator class="identity"/>
+        </id>
+
+        <!-- Значение поля должно быть больше -494, Поле не может быть null -->
+        <property name="x">
+            <column name="x" not-null="true" check="x > -494"/>
+        </property>
+
+        <!-- Значение поля должно быть больше -609, Поле не может быть null -->
+        <property name="y">
+            <column name="y" not-null="true" check="y > -609"/>
+        </property>
+    </class>
+</hibernate-mapping>

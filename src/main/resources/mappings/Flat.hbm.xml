@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="entity">
+    <class name="Flat" table="flat" check="id > 0">
+        <!-- Значение поля должно быть больше 0, уникальным, генерироваться автоматически (средствами БД) -->
+        <id name="id" type="int" column="id">
+            <generator class="identity"/>
+        </id>
+
+        <!-- Поле не может быть null, Строка не может быть пустой -->
+        <property name="name">
+            <column name="name" not-null="true" check="length(trim(name)) > 0"/>
+        </property>
+
+        <!-- Поле не может быть null -->
+        <many-to-one name="coordinates" class="Coordinates" foreign-key="fk_flat_coordinates">
+            <column name="coordinates_id" not-null="true"/>
+        </many-to-one>
+
+        <!-- Поле не может быть null, Значение этого поля должно генерироваться автоматически (БД) -->
+        <property name="creationDate" insert="false" update="false" generated="insert">
+            <column name="creation_date" not-null="true" default="CURRENT_TIMESTAMP"/>
+        </property>
+
+        <!-- Максимальное значение поля: 628, Значение поля должно быть больше 0 -->
+        <property name="area">
+            <column name="area" check="area > 0 AND area &lt;= 628"/>
+        </property>
+
+        <!-- Значение поля должно быть больше 0 -->
+        <property name="price">
+            <column name="price" check="price > 0"/>
+        </property>
+
+        <!-- Поле может быть null -->
+        <property name="balcony">
+            <column name="balcony"/>
+        </property>
+
+        <!-- Значение поля должно быть больше 0 -->
+        <property name="timeToMetroOnFoot">
+            <column name="time_to_metro_on_foot" check="time_to_metro_on_foot > 0"/>
+        </property>
+
+        <!-- Значение поля должно быть больше 0 -->
+        <property name="numberOfRooms">
+            <column name="number_of_rooms" not-null="true" check="number_of_rooms > 0"/>
+        </property>
+
+        <!-- Значение поля должно быть больше 0 -->
+        <property name="floor">
+            <column name="floor" not-null="true" check="floor > 0"/>
+        </property>
+
+        <!-- Поле не может быть null -->
+        <property name="furnish">
+            <column name="furnish" not-null="true" check="furnish IN ('DESIGNER', 'BAD', 'LITTLE')"/>
+            <type name="org.hibernate.type.EnumType">
+                <param name="enumClass">entity.Furnish</param>
+                <param name="useNamed">true</param>
+            </type>
+        </property>
+
+        <!-- Поле может быть null -->
+        <property name="view">
+            <column name="view" check="view IN ('STREET', 'YARD', 'PARK', 'NORMAL', 'GOOD')"/>
+            <type name="org.hibernate.type.EnumType">
+                <param name="enumClass">entity.View</param>
+                <param name="useNamed">true</param>
+            </type>
+        </property>
+
+        <!-- Поле не может быть null -->
+        <many-to-one name="house" class="House" foreign-key="fk_flat_house">
+            <column name="house_id" not-null="true"/>
+        </many-to-one>
+    </class>
+</hibernate-mapping>

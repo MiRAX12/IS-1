@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC
+        "-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+    <session-factory>
+        <!-- DataSource настраивается в WildFly (PostgresDS): jdbc:postgresql://localhost:5432/studs через SSH-туннель, на сервере — pg:5432 -->
+        <property name="hibernate.connection.datasource">java:jboss/datasources/PostgresDS</property>
+
+        <property name="hibernate.transaction.coordinator_class">jta</property>
+        <property name="hibernate.transaction.jta.platform">JBossAS</property>
+        <property name="hibernate.current_session_context_class">jta</property>
+
+        <property name="hibernate.hbm2ddl.auto">update</property>
+        <property name="hibernate.show_sql">true</property>
+        <property name="hibernate.format_sql">true</property>
+
+        <mapping resource="mappings/Coordinates.hbm.xml"/>
+        <mapping resource="mappings/House.hbm.xml"/>
+        <mapping resource="mappings/Flat.hbm.xml"/>
+    </session-factory>
+</hibernate-configuration>

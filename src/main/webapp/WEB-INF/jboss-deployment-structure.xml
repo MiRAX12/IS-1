@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jboss-deployment-structure xmlns="urn:jboss:deployment-structure:1.2">
+    <deployment>
+        <dependencies>
+            <!-- Без persistence.xml WildFly не подключает Hibernate к деплойменту автоматически -->
+            <module name="org.hibernate" services="import"/>
+        </dependencies>
+    </deployment>
+</jboss-deployment-structure>
